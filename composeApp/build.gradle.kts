@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -24,11 +27,19 @@ kotlin {
             isStatic = true
         }
     }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
     
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -39,9 +50,25 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.jetbrains.compose.navigation)
+            implementation(libs.kotlinxSerializationJson)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.sqlite.bundled)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            api(libs.koin.core)
+
+            implementation(libs.bundles.ktor)
+            implementation(libs.bundles.coil)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -74,6 +101,6 @@ android {
 }
 
 dependencies {
+    ksp(libs.androidx.room.compiler)
     debugImplementation(libs.compose.uiTooling)
 }
-
