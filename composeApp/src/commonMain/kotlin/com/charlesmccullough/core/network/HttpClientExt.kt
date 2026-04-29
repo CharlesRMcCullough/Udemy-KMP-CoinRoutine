@@ -1,4 +1,4 @@
-package com.charlesmccullough.core.Network
+package com.charlesmccullough.core.network
 
 import com.charlesmccullough.core.domain.DataError
 import com.charlesmccullough.core.domain.Result

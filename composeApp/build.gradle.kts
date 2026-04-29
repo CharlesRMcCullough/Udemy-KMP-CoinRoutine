@@ -1,5 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.codingfeline.buildkonfig.compiler.FieldSpec
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,6 +11,30 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.buildkonfig)
+}
+
+val secrets = Properties().apply {
+    val secretsFile = rootProject.file("secrets.properties")
+    if (secretsFile.exists()) {
+        secretsFile.inputStream().use { load(it) }
+    }
+}
+
+buildkonfig {
+    packageName = "com.charlesmccullough"
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.STRING,
+            "COIN_API_KEY",
+            secrets.getProperty("COIN_API_KEY") ?: ""
+        )
+        buildConfigField(
+            FieldSpec.Type.STRING,
+            "BASE_URL",
+            secrets.getProperty("BASE_URL") ?: ""
+        )
+    }
 }
 
 kotlin {

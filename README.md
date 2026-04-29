@@ -33,3 +33,14 @@ in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and r
 ---
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+
+### API Key Setup
+
+To run this project, you need an API key from [Coinranking](https://coinranking.com/). 
+Create a file named `secrets.properties` in the root directory of the project and add your key there:
+
+```properties
+COIN_API_KEY=your_api_key_here
+```
+
+This file is ignored by git to keep your keys secure.
