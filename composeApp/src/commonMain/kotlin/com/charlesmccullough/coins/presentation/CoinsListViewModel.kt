@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.charlesmccullough.coins.domain.GetCoinsListUseCase
 import com.charlesmccullough.core.domain.Result
+import com.charlesmccullough.core.util.formatFiat
+import com.charlesmccullough.core.util.formatPercentage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -38,8 +40,8 @@ class CoinsListViewModel(
                                 name = coinItem.coin.name,
                                 iconUrl = coinItem.coin.iconUrl,
                                 symbol = coinItem.coin.symbol,
-                                formattedPrice = coinItem.price.toString(), //TODO: formatFiat(coinItem.price),
-                                formattedChange = coinItem.change.toString(), //TODO: formatPercentage(coinItem.change),
+                                formattedPrice = formatFiat(coinItem.price),
+                                formattedChange = formatPercentage(coinItem.change),
                                 isPositive = coinItem.change >= 0,
                             )
                         }
