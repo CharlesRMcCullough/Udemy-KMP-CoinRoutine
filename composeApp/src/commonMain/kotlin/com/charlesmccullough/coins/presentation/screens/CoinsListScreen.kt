@@ -23,21 +23,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.charlesmccullough.coins.presentation.CoinsListViewModel
 import com.charlesmccullough.coins.presentation.CoinsState
 import com.charlesmccullough.coins.presentation.UiCoinListItem
 import com.charlesmccullough.theme.LocalCoinRoutineColorsPalette
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CoinsListScreen(
-        onCoinClicked: (String) -> Unit
+    onCoinClicked: (String) -> Unit
 ) {
-    val coinsListViewModel = viewModel(CoinsListViewModel::class) // Todo: use Koin to inject view model
+    val coinsListViewModel = koinViewModel<CoinsListViewModel>()
     val state by coinsListViewModel.state.collectAsStateWithLifecycle()
 
     CoinsListContent(
@@ -71,7 +72,7 @@ fun CoinsList(
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.background)
+            .background(Color.Black)
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -80,9 +81,9 @@ fun CoinsList(
             item {
                 Text(
                     text = "🔥 Top Coins:",
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = Color.White,
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp, top=35.dp)
                 )
             }
             items(coins) { coin ->
@@ -119,13 +120,13 @@ fun CoinListItem(
         ) {
             Text(
                 text = coin.name,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = Color.White,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = coin.symbol,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = Color.White,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             )
         }
@@ -135,7 +136,7 @@ fun CoinListItem(
         ) {
             Text(
                 text = coin.formattedPrice,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = Color.White,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
             Spacer(modifier = Modifier.height(4.dp))

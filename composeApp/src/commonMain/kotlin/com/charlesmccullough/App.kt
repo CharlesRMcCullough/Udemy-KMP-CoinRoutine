@@ -18,12 +18,13 @@ import org.jetbrains.compose.resources.painterResource
 
 import coinroutine.composeapp.generated.resources.Res
 import coinroutine.composeapp.generated.resources.compose_multiplatform
+import com.charlesmccullough.coins.presentation.screens.CoinsListScreen
 import com.charlesmccullough.theme.CoinRoutineTheme
 
 @Composable
 @Preview
 fun App() {
    CoinRoutineTheme {
-
+      CoinsListScreen {  }
    }
 }

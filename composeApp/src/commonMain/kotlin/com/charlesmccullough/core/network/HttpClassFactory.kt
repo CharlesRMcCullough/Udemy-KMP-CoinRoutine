@@ -28,7 +28,7 @@ object HttpClientFactory {
             }
             install(HttpCache)
             defaultRequest {
-                headers { append("x-access-token", BuildKonfig.COIN_API_KEY) }
+               // headers { append("x-access-token", BuildKonfig.COIN_API_KEY) }
                 contentType(ContentType.Application.Json)
             }
         }
