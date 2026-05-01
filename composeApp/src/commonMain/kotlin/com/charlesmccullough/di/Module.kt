@@ -3,6 +3,7 @@ package com.charlesmccullough.di
 import com.charlesmccullough.coins.data.remote.KtorCoinsRemoteDataSource
 import com.charlesmccullough.coins.domain.GetCoinDetailUseCase
 import com.charlesmccullough.coins.domain.GetCoinsListUseCase
+import com.charlesmccullough.coins.domain.GetCoinPriceHistoryUseCase
 import com.charlesmccullough.coins.domain.api.CoinsRemoteDataSource
 import com.charlesmccullough.coins.presentation.CoinsListViewModel
 import com.charlesmccullough.core.network.HttpClientFactory
@@ -31,8 +32,10 @@ val sharedModule = module {
 
     // core
     single<HttpClient> { HttpClientFactory.create(get()) }
-    viewModel { CoinsListViewModel(get()) }
+    viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::GetCoinsListUseCase)
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
     singleOf(::GetCoinDetailUseCase)
+    singleOf(::GetCoinPriceHistoryUseCase)
+
 }
