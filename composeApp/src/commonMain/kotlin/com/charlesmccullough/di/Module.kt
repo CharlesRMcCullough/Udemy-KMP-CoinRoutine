@@ -1,11 +1,14 @@
 package com.charlesmccullough.di
 
+import androidx.room.RoomDatabase
 import com.charlesmccullough.coins.data.remote.KtorCoinsRemoteDataSource
 import com.charlesmccullough.coins.domain.GetCoinDetailUseCase
 import com.charlesmccullough.coins.domain.GetCoinsListUseCase
 import com.charlesmccullough.coins.domain.GetCoinPriceHistoryUseCase
 import com.charlesmccullough.coins.domain.api.CoinsRemoteDataSource
 import com.charlesmccullough.coins.presentation.CoinsListViewModel
+import com.charlesmccullough.core.database.portfolio.PortfolioDatabase
+import com.charlesmccullough.core.database.portfolio.getPortfolioDatabase
 import com.charlesmccullough.core.network.HttpClientFactory
 import io.ktor.client.HttpClient
 import org.koin.core.context.startKoin
@@ -32,6 +35,13 @@ val sharedModule = module {
 
     // core
     single<HttpClient> { HttpClientFactory.create(get()) }
+
+    // portfolio
+
+    single {
+        getPortfolioDatabase(get<RoomDatabase.Builder<PortfolioDatabase>>())
+    }
+
     viewModel { CoinsListViewModel(get(), get()) }
     singleOf(::GetCoinsListUseCase)
     singleOf(::KtorCoinsRemoteDataSource).bind<CoinsRemoteDataSource>()
